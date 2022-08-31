@@ -29,8 +29,7 @@ vector<point> intercircles(vector<circle> &c){
 	for(int i=0; i<c.size(); i++){
 		int k=1;
 		Cmp s(c[i].o);
-		vector<pair<point,int>> p = {{c[i].o+point(1,0)*c[i].r,0},
-										 {c[i].o-point(1,0)*c[i].r,0}};
+		vector<pair<point,int>> p = {{c[i].o+point(1,0)*c[i].r,0}, {c[i].o-point(1,0)*c[i].r,0}};
 
 		for(int j=0; j<c.size(); j++){
 			bool b0 = c[i].in(c[j]), b1 = c[j].in(c[i]);
