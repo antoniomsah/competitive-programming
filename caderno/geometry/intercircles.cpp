@@ -1,5 +1,7 @@
 /**
- * Algorithm from el-vasito that checks area covered by at least k circles.
+ * Algorithm from el-vasito.
+ * Area covered from multiple circles intersections. 
+ *
  * Complexity: O(n^n log n) with high constant
  **/
 
@@ -25,7 +27,7 @@ struct Cmp {
 };
 
 vector<point> intercircles(vector<circle> &c){
-	vector<double> cover(c.size()+1);
+	vector<double> cover(c.size()+1); // area covered by at least k circles
 	for(int i=0; i<c.size(); i++){
 		int k=1;
 		Cmp s(c[i].o);
@@ -53,7 +55,6 @@ vector<point> intercircles(vector<circle> &c){
 			cover[k] += (a.x-b.x)*(a.y+b.y)/2 + c[i].r * c[i].r * (ang-sin(ang))/2;
 			k += p[j].second;
 		}
-
 	}
 
 	return cover;
