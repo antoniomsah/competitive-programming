@@ -1,5 +1,5 @@
 /**
- * Sweepline convex hull algorithm. First point equals last point. 
+ * Monotone chain algorithm. First point equals last point. 
  * Border represents the inclusion of collinear points.
  *
  * Complexity: O(nlgn)
