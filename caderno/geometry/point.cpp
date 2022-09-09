@@ -1,6 +1,8 @@
 typedef double T;
 const double EPS = 1e-7;
 
+int sign(T x) { return (x > EPS) - (x < -EPS); }
+
 struct point {
 	T x,y;
 	
@@ -18,7 +20,7 @@ struct point {
 	T operator^(const point& other) const { return x*other.y - y*other.x; } // cross
 	T operator*(const point& other) const { return x*other.x + y*other.y; } // dot
 
-	bool operator<(const point& other) const { return x < other.x + EPS or (abs(x-other.x) < EPS and y < other.y + EPS); }
+	bool operator<(const point& other) const { return x < other.x - EPS or (abs(x-other.x) < EPS and y < other.y - EPS); }
 	bool operator==(const point& other) const { return abs(x-other.x) < EPS and abs(y-other.y) < EPS; }
 	bool operator!=(const point& other) const { return !(*this == other); }
 
