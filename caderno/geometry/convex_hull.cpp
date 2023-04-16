@@ -23,6 +23,7 @@ vector<point> convex_hull(vector<point> p, bool border=0){
 			ch.pop_back(), m--;
 		ch.push_back(p[i]);
 	}
+	ch.pop_back(); // last element is duplicated
 
 	return ch;
 }
