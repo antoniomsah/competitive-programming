@@ -2,7 +2,7 @@
  * Algorithm from el-vasito.
  * Area covered from multiple circles intersections. 
  *
- * Complexity: O(n^n log n) with high constant
+ * Complexity: O(n^2 log n) with high constant
  **/
 
 bool cmp(point a, point b, point o){
