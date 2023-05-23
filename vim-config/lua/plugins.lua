@@ -6,7 +6,6 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 
 return require('packer').startup({
 	function(use)
-		
 		-- Package Manager
 		use 'wbthomason/packer.nvim'
 
@@ -16,6 +15,44 @@ return require('packer').startup({
 			config = function()
 				require('themes.dracula')
 			end,
+		}
+
+		-- Snippets
+		use {
+			'hrsh7th/nvim-cmp',
+			config = function()
+				require('plugins.cmp')
+			end,
+		}
+
+		use { 'saadparwaiz1/cmp_luasnip' }
+
+		use {
+			'L3MON4D3/LuaSnip',
+			after = 'nvim-cmp',
+			config = function()
+				require('plugins.snippets')
+			end,
+		}
+
+		-- LSP
+		use {
+		  'VonHeikemen/lsp-zero.nvim',
+		  branch = 'v2.x',
+		  requires = {
+			-- LSP Support
+			{'neovim/nvim-lspconfig'},             -- Required
+			{                                      -- Optional
+			  'williamboman/mason.nvim',
+			  run = function()
+				pcall(vim.cmd, 'MasonUpdate')
+			  end,
+			},
+			{'williamboman/mason-lspconfig.nvim'}, -- Optional
+			{'hrsh7th/nvim-cmp'},
+			{'hrsh7th/cmp-nvim-lsp'},
+			{'L3MON4D3/LuaSnip'},
+		  }
 		}
 
 		-- Colorizer
@@ -47,12 +84,6 @@ return require('packer').startup({
 				require('plugins.treesitter')
 			end,
     	}
-
-		-- LSP
-		use {
-			'neovim/nvim-lspconfig',
-		}
-
 	end,
 
 	config = {

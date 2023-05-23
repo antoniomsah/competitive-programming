@@ -1,9 +1,23 @@
-local lsp = require('lspconfig')
+local lsp = require('lsp-zero').preset({})
 
--- TODO: setup lsp
+lsp.ensure_installed({
+	'clangd',
+	'lua_ls',
+	'pyright',
+})
 
-local lsp_flags = {
-	debounce_text_changes = 150,
-}
+lsp.setup()
 
+local cmp = require('cmp')
+local cmp_action = require('lsp-zero').cmp_action()
 
+cmp.setup({
+  mapping = {
+    -- Ctrl+Space to trigger completion menu
+    ['<C-Space>'] = cmp.mapping.complete(),
+
+    -- Navigate between snippet placeholder
+    ['<C-f>'] = cmp_action.luasnip_jump_forward(),
+    ['<C-b>'] = cmp_action.luasnip_jump_backward(),
+  }
+})

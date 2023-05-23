@@ -13,3 +13,4 @@ o.termguicolors 	= true
 -- Dracula theme
 local dracula = require("dracula")
 vim.cmd [[colorscheme dracula]]
+
