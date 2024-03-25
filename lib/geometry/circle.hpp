@@ -2,12 +2,12 @@
 //
 // Complexity: O(1) unless stated
 
+const Point<int> ccw(1, 0);
+
 template <class T>
 struct Circle {
 	using P = Point<T>;
 	using C = Circle;
-
-	static constexpr P ccw = P(1, 0);
 
 	P c; T r;
 	Circle() {}
@@ -30,7 +30,7 @@ struct Circle {
 	// returns intersection points between two circles
 	vector<P> intersect(C rhs) {
 		vector<P> inter;
-		C d = (c-rhs.c).norm();
+		T d = (c-rhs.c).norm();
 		if (d > r + rhs.r + EPS or d + min(r,rhs.r) + EPS < max(r,rhs.r)) {
 			return inter;
 		}
