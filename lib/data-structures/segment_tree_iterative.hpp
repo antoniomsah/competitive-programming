@@ -2,7 +2,7 @@
 //
 template <class T>
 struct segment_tree {
-	static constexpr T zero = T();
+	static constexpr T NEUT = T();
 
 	int n;
 	vector<T> seg;
@@ -21,7 +21,7 @@ struct segment_tree {
 
 	// O(lgn)
 	T query(int l, int r) {
-		T tl = zero, tr = zero;
+		T tl = NEUT, tr = NEUT;
 		for (l += n, r += n; l < r; l >>= 1, r >>= 1) {
 			if (l&1) tl = tl + seg[l++];
 			if (r&1) tr = tr + seg[--r];
