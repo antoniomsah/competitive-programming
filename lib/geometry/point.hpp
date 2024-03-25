@@ -1,0 +1,60 @@
+// Point
+//
+// Complexity: O(1) unless stated
+
+template <typename T>
+int sign(T x) { return (x>0) - (x<0); }
+
+template <class T>
+struct Point {
+	using P = Point;
+
+	T x,y;
+	Point(T x=0, T y=0) : x(x), y(y) {}
+
+	double norm() { return sqrt(norm2()); }
+	T norm2() { return (*this) * (*this); }
+
+	P operator+(P p) { return P(x+p.x, y+p.y); }
+	P operator-(P p) { return P(x-p.x, y-p.y); }
+	P operator*(T t) { return P(x*t, y*t); }
+	P operator/(T t) { return P(x/t, y/t); }
+
+	T operator*(P p) { return x*p.x + y*p.y; }
+	T operator^(P p) { return x*p.y - y*p.x; }
+
+	bool operator<(P p) { return tie(x,y) < tie(p.x,p.y); }
+	bool operator==(P p) { return tie(x,y) == tie(p.x,p.y); }
+
+	// rotations are counter-clockwise
+	P rot(P p) { return P((*this)^p, (*this)*p); }
+	P rot(double ang) { return rot(P(sin(ang), cos(ang))); }
+
+	double angle() { return atan2(y,x); }
+	double angle(P p) { 
+		return acos(max(-1.0, min(1.0, (*this)*p/(norm()*p.norm())))); 
+	}
+
+	P unit() { return (*this)/norm(); }
+	P perp() { return P(-y,x); }
+	P normal() { return perp().unit(); }
+	bool is_perp(P p) { return ((*this) * p) == 0; }
+
+	bool side() { return (y > 0) or (y == 0 and x < 0); }
+
+	friend T cross(P a, P b, P c) { return (b-a)^(c-a); }
+	friend T left(P a, P b, P c) { return cross(a, b, c) > 0; }
+	friend T right(P a, P b, P c) { return cross(a, b, c) < 0; }
+
+
+	friend ostream& operator<<(ostream& os, P p) {
+		return os<<"("<<p.x<<", "<<p.y<<")"; 
+	}
+};
+
+template <typename T>
+void polarsort(vector<T> &v) {
+	sort(v.begin(), v.end(), [](T a, T b) {
+		return make_tuple(a.side(), 0) < make_tuple(b.side(), a^b); 
+	});
+}
