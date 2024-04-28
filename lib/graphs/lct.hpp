@@ -133,4 +133,26 @@ struct link_cut_tree : splay_tree<ll> {
 	void update(int u, int x) {
 		access(u); t[u].value = x; pull(u);
 	}
+
+	// jumps k vertices in path [u...v]
+	// t[x].sub MUST be x's subtree size
+	int jump(int u, int v, int k) {
+		make_root(u); access(v); 
+		if (k > t[u].sub) return 0;
+		while (true) {
+			push(v); pull(v);
+			int rsz = 0;
+			if (t[v].child[1]) rsz = t[t[v].child[1]].sub;
+
+			if (k < rsz) {
+				v = t[v].child[1];
+			} else if (k == rsz) {
+				break;
+			} else {
+				k -= rsz+1;
+				v = t[v].child[0];
+			}
+		}
+		return splay(v), v;
+	}
 };
