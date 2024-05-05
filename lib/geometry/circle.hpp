@@ -30,16 +30,16 @@ struct Circle {
 	// returns intersection points between two circles
 	vector<P> intersect(C rhs) {
 		vector<P> inter;
-		T d = (c-rhs.c).norm();
-		if (d > r + rhs.r + EPS or d + min(r,rhs.r) + EPS < max(r,rhs.r)) {
-			return inter;
-		}
+		P d = (rhs.c-c); T d2 = d.norm2();
+		if (abs(d2) < EPS) return inter;
+		T pd = (d2 + r*r - rhs.r*rhs.r)/2,
+		  h2 = r*r - pd*pd/d2;
 
-		T x = (d*d - rhs.r*rhs.r + r*r) / (d*2),
-		  y = sqrt(r*r - x*x);
-		P v = (rhs.c-c)/d;
-		inter.push_back(c + v*x - v.rot(ccw)*y);
-		if (y > EPS) inter.push_back(c+v*x+v.rot(ccw)*y);
+		if (h2 > -EPS) {
+			P p = c + d*pd/d2, h = d.perp()*sqrt(h2/d2);
+			if (abs(h.norm()) > EPS) inter = {p-h, p+h};
+			else inter = {p+h};
+		}
 		return inter;
 	}
 
@@ -47,7 +47,7 @@ struct Circle {
 	vector<pair<P,P>> tangents(C rhs, bool inner = false) {
 		if (inner) rhs.r = -rhs.r;
 		P d = (rhs.c - c);
-		double dr = (r-rhs.r), d2 = d.norm2(), h2 = d2 - dr*dr;
+		T dr = (r-rhs.r), d2 = d.norm2(), h2 = d2 - dr*dr;
 		if (d2 < EPS or h2 < -EPS) return {};
 
 		vector<pair<P,P>> ret;
