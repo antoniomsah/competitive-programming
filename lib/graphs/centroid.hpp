@@ -22,6 +22,7 @@ namespace centroid {
 		return u;
 	}
 
+	// For example
 	vector<int> dists(MAXN);
 
 	int solve(int root, int k) {
