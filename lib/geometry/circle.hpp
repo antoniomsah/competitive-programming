@@ -63,3 +63,14 @@ struct Circle {
 		return tangents(C(p, 0), inner);
 	}
 };
+
+// Given a circle defined by points (a, b, c) 
+// checks if d is contained in that circle.
+bool in_circle(P a, P b, P c, P d) {
+	P ad = (a-d), bd = (b-d), cd = (c-d);
+	return (
+		ad.norm2() * cross(bd, cd) -
+		bd.norm2() * cross(ad, cd) +
+		cd.norm2() * cross(ad, bd)
+	) >= 0;
+};
