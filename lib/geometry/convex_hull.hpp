@@ -22,7 +22,7 @@ vector<T> convex_hull(vector<T> p, bool border=0){
 		ch.push_back(p[i]);
 	}
 
-	for (int i = n-2, t = m, i >= 0; i--, m++) {
+	for (int i = n-2, t = m; i >= 0; i--, m++) {
 		while (m > t and sign(cross(ch[m-2], ch[m-1], p[i])) <= -border) {
 			ch.pop_back(), m--;
 		}
