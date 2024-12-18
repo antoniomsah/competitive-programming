@@ -2,7 +2,7 @@
 
 template <class T>
 struct segment_tree {
-	static constexpr T NEUT = T();
+	const T NEUT = T();
 
 	int n;
 	vector<T> seg;

@@ -13,8 +13,8 @@ struct DSU {
 
 	bool merge(int u, int v) {
 		u = find(u); v = find(v);
-		if(u == v) return false; 
-		if(p[u] < p[v]) swap(u,v);
+		if (u == v) return false; 
+		if (p[u] < p[v]) swap(u,v);
 		p[u] += p[v]; p[v] = u;
 		return true;
 	}
